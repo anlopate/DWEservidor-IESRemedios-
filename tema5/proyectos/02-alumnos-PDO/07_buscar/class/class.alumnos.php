@@ -313,6 +313,7 @@
 
     public function filter($expresion){
     
+        try{
         $sql = "SELECT 
                     alumnos.id,
                     CONCAT_WS(', ', alumnos.apellidos, alumnos.nombre) AS alumno,
@@ -354,7 +355,11 @@
        
         return $pdostsmt;
 
+    }catch(PDOException $e){
+        include('views/partials/errodDB.php');
+        exit();
     }
+}
 }
 
 ?>
