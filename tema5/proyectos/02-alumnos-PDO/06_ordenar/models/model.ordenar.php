@@ -2,7 +2,7 @@
 <?php
     $criterioOrden = $_GET['criterio'];
 
-    $conexion = new Alumno();
+    $conexion = new Alumnos();
 
-    $conexion->ordenar($criterioOrden);
+    $alumnos = $conexion->ordenar($criterioOrden);
 ?>

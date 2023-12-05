@@ -279,16 +279,30 @@
     public function ordenar ($criterio){
 
         try{
-            $sql = "SELECT * FROM alumnos ORDER BY $criterio";
-
+            $sql = "SELECT 
+            alumnos.id,
+            concat_ws(', ', alumnos.apellidos, alumnos.nombre) alumno,
+            timestampdiff(YEAR,  alumnos.fechaNac, NOW() ) edad,
+            alumnos.dni,
+            alumnos.poblacion,
+            alumnos.email,
+            alumnos.telefono,
+            cursos.nombreCorto curso 
+            FROM
+        alumnos
+            INNER JOIN
+        cursos ON alumnos.id_curso = cursos.id
+    ORDER BY $criterio";
             //Ejecutar prepare 
             $pdostmt = $this->pdo->prepare($sql);
 
             //Esteblezco el tipo de dato que quiero obtener
-            $pdostmt=setFetchMode(PDO::FETCH_OBJ);
+            $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
             //Ejecutar
-            $pdostmt=execute();
+            $pdostmt->execute();
+
+            return $pdostmt;
 
         }catch (PDOException $e){
             include('views/partials/errorDB.php');
