@@ -275,6 +275,27 @@
             exit();
         }
     }
+
+    public function ordenar ($criterio){
+
+        try{
+            $sql = "SELECT * FROM alumnos ORDER BY $criterio";
+
+            //Ejecutar prepare 
+            $pdostmt = $this->pdo->prepare($sql);
+
+            //Esteblezco el tipo de dato que quiero obtener
+            $pdostmt=setFetchMode(PDO::FETCH_OBJ);
+
+            //Ejecutar
+            $pdostmt=execute();
+
+        }catch (PDOException $e){
+            include('views/partials/errorDB.php');
+            exit();
+        }
+
+    }
 }
 
 ?>
