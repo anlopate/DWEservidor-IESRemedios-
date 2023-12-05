@@ -12,7 +12,7 @@
 
     Class Alumnos extends Conexion {
 
-            
+
         public function getAlumnos(){
 
                 $sql = "SELECT 
@@ -289,10 +289,10 @@
             alumnos.telefono,
             cursos.nombreCorto curso 
             FROM
-        alumnos
+            alumnos
             INNER JOIN
-        cursos ON alumnos.id_curso = cursos.id
-    ORDER BY $criterio";
+                cursos ON alumnos.id_curso = cursos.id
+                ORDER BY $criterio";
             //Ejecutar prepare 
             $pdostmt = $this->pdo->prepare($sql);
 
@@ -308,6 +308,51 @@
             include('views/partials/errorDB.php');
             exit();
         }
+
+    }
+
+    public function filter($expresion){
+    
+        $sql = "SELECT 
+                    alumnos.id,
+                    CONCAT_WS(', ', alumnos.apellidos, alumnos.nombre) AS alumno,
+                    alumnos.email,
+                    alumnos.telefono,
+                    alumnos.poblacion,
+                    alumnos.dni,
+                    TIMESTAMPDIFF(YEAR,
+                        alumnos.fechaNac,
+                        NOW()) AS edad,
+                    cursos.nombreCorto AS curso
+                    FROM
+                    alumnos
+                    INNER JOIN cursos ON alumnos.id_curso = cursos.id
+                    WHERE CONCAT_WS(' ',
+                    alumnos.id, 
+                    alumnos.nombre,
+                    alumnos.apellidos, 
+                    alumnos.email, 
+                    alumnos.telefono,
+                    alumnos.poblacion, 
+                    alumnos.dni, 
+                    alumnos.fechaNac, 
+                    cursos.nombreCorto
+                    ) LIKE $expresion";
+
+        # ejecutamos el prepare -> objeto de la clase pdostatament
+        $pdostsmt = $this->pdo->prepare($sql);
+
+        # Vinculamos la expreesión con bimParam
+        $pdostsmt->bindParam(':expresion', "%$expresion%", PDO::PARAM_STR);
+
+        # Establezco tipo de fetch
+        $pdostsmt->setFetchMode(PDO::FETCH_OBJ); // extrae cada elemento como un objeto
+
+        # Ejecuto
+        $pdostsmt->execute();
+        
+       
+        return $pdostsmt;
 
     }
 }
