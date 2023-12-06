@@ -18,5 +18,5 @@
     include('models/model.index.php');
 
     # Cargo vista
-    include('views/view.index.php');
+    include('views/view.index2.php');
 ?>

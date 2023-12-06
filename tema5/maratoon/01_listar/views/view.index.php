@@ -3,7 +3,7 @@
 
 <head>
     <?php include 'views/layouts/head.html' ?>
-    <title> HOME Proyecto 5.2 - Gestión Alumnos</title>
+    <title>Proyecto 5.1 - Tema 5 -MySQL y PHP</title>
 </head>
 
 <body>
@@ -13,10 +13,10 @@
         <!-- cabecera documento -->
         <?php include 'views/partials/header.php' ?>
 
-        <legend>Tabla alumnos</legend>
+        <legend>Tabla corredores</legend>
 
-        <!-- Menu Principal -->
-        <?php include 'views/partials/menu.php' ?>
+        <!-- Menu Navegación -->
+        <?php include 'views/partials/nav.php' ?>
 
         <!-- Notificación -->
         <?php include 'views/partials/notify.php' ?>
@@ -28,46 +28,47 @@
                 <tr>
                     <!-- personalizado -->
                     <th>Id</th>
-                    <th>Alumno</th>
-                    <th class="text-end">Edad</th>
-                    <th>DNI</th>
-                    <th>Población</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Ciudad</th>
                     <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Curso</th>
+                    <th class="text-end">Edad</th>
+                    <th>Categoría</th>
+                    <th>Club</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <!-- Mostramos cuerpo de la tabla -->
             <tbody>
 
-                <!-- Objeto clase pdostatement en  foreach -->
-                <?php foreach ($alumnos as $alumno): ?>
+                <!-- Cuando $corredor sea cero se sale del while. Cuando el fetch se haya recorrido entero. -->
+                <?php foreach ($corredores as $corredor): ?>
                     <tr>
                         <!-- Formatos distintos para cada  columna -->
 
-                        <!-- Detalles de alumnos -->
-                        <td><?= $alumno->id?></td>
-                        <td><?= $alumno->nombre?></td>
-                        <td class="text-end"><?= $alumno->edad ?></td>
-                        <td><?= $alumno->dni?></td>
-                        <td><?= $alumno->poblacion?></td>
-                        <td><?= $alumno->email?></td>
-                        <td><?= $alumno->telefono?></td>
-                        <td><?= $alumno->curso?></td>
+                        <!-- Detalles de corredores -->
+                        <td><?= $corredor->id?></td>
+                        <td><?= $corredor->nombre?></td>
+                        <td><?= $corredor->apellidos?></td>
+                        <td><?= $corredor->ciudad?></td>
+                        <td><?= $corredor->email?></td>
+                        <td class="text-end"><?= $corredor->edad?></td>
+                        <td><?= $corredor->id_categoria?></td>
+                        <td><?= $corredor->id_club?></td>
+                       
                        
                         <!-- botones de acción -->
                         <td>
                             <!-- botón  eliminar -->
-                            <a href="eliminar.php?id=<?= $alumno->id?>" title="Eliminar">
+                            <a href="eliminar.php?id=<?= $corredor->id?>" title="Eliminar">
                             <i class="bi bi-trash-fill"></i></a>
 
                             <!-- botón  editar -->
-                            <a href="editar.php?id=<?= $alumno->id?>" title="Editar">
+                            <a href="editar.php?id=<?= $corredor->id?>" title="Editar">
                             <i class="bi bi-pencil-square"></i></a>
 
                             <!-- botón  mostrar -->
-                            <a href="mostrar.php?id=<?= $alumno->id?> ?>" title="Mostrar">
+                            <a href="mostrar.php?id=<?= $corredor->id?>" title="Mostrar">
                             <i class="bi bi-card-text"></i></a>
 
                         </td>
@@ -79,14 +80,14 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="7">Nº Alumnos
-                        <?= $alumnos->rowCount(); ?>
+                    <td colspan="7">Nº Corredores
+                        <?= $corredores->rowCount(); ?>
                     </td>
                 </tr>
             </tfoot>
         </table>
         <!--Cerramos la conexión-->
-        <?php $conexion->cerrar_conexion(); $alumnos=null; ?>
+        <?php $conexion->cerrar_conexion(); $corredores=null; ?>
 
 
 

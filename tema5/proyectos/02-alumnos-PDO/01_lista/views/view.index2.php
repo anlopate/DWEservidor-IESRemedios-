@@ -41,8 +41,8 @@
             <!-- Mostramos cuerpo de la tabla -->
             <tbody>
 
-                <!-- Objeto clase pdostatement en  foreach -->
-                <?php foreach ($alumnos as $alumno): ?>
+                <!-- Cuando $alumno sea cero se sale del while. Cuando el fetch se haya recorrido entero. -->
+                <?php while ($alumno=$alumnos->fetch()): ?>
                     <tr>
                         <!-- Formatos distintos para cada  columna -->
 
@@ -73,7 +73,7 @@
                         </td>
                     </tr>
 
-                <?php endforeach; ?>
+                <?php endwhile; ?>
 
 
             </tbody>
