@@ -180,6 +180,7 @@ Class Corredores extends Conexion{
             $sql = "SELECT * FROM corredores where id= $id";
 
             $pdostmt = $this->pdo->prepare($sql);
+           // $pdostmt->bindParam(':id', $id , PDO::PARAM_INT);
 
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
@@ -194,6 +195,78 @@ Class Corredores extends Conexion{
     }
 
 
+    public function delete_Corredor($id){
 
-}
+        try{
+
+            $sql = "DELETE FROM corredores WHERE id = $id";
+
+            $pdostmt = $this->pdo->prepare($sql);
+
+           // $pdostmt->bindParam(':id', $id, PDO::PARAM_OBJ);
+
+            $pdostmt->execute();
+
+            $pdostmt = null;
+
+            $this->pdo = null;
+
+        }catch(PDOException $e){
+            include('views/partials/errorDB.php');
+            exit();
+        }
+    }
+
+
+    public function ordenar_Corredores($criterio){
+
+        try{
+            $sql = "SELECT * FROM corredores ORDER BY $criterio";
+
+            $pdostmt = $this->pdo->prepare($sql);
+
+            $pdostmt->setFetchMode(PDO::FETCH_OBJ);
+
+            $pdostmt->execute();
+
+            return $pdostmt;
+
+
+            
+        }catch(PDOException $e){
+            include('views/partials/errorDB.php');
+            exit();
+        }
+
+
+    }
+
+    public function filtrar_corredores($expresion){
+
+        try{
+            $sql = "SELECT * FROM corredores WHERE 
+            CONCAT_WS(' ', 
+            id,
+            nombre,
+            apellidos,
+            ciudad,
+            email,
+            edad,
+            id_categoria,
+            id_club) LIKE $expresion";
+
+        $pdostmt =$this->pdo->prepare($sql);
+        //$pdostsmt->bindParam(':expresion', "%$expresion%", PDO::PARAM_STR);
+
+        $pdostmt->setFetchMode(PDO::FETCH_OBJ);
+
+        $pdostmt->execute();
+
+        return $pdostmt;
+            
+        }catch(PDOException $e){
+            include('views/partials/errorDB.php');
+            exit();
+        }
+    }}
 ?>

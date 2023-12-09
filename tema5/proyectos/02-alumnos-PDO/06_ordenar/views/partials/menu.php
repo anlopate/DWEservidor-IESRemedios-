@@ -19,7 +19,7 @@
                         Ordenar
                     </a>
                     <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="ordenar.php?criterio=alumnos.nombre">Nombre</a></li>
+                        <li><a class="dropdown-item" href="ordenar.php?criterio=alumnos.nombre">Nombre</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=alumnos.apellidos">Apellidos</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=alumnos.email">Email</a></li>
                         <li><a class="dropdown-item" href="ordenar.php?criterio=alumnos.telefono">Telefono</a></li>
