@@ -1,4 +1,3 @@
-
 <?php
 
 /*
@@ -20,4 +19,3 @@ define('COLLECTION', 'utf8mb4_unicode_ci');
 
 
 ?>
-

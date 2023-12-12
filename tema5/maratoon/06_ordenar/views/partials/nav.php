@@ -18,16 +18,17 @@
                         aria-expanded="false">
                         Ordenar
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.id">Id</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.nombre">Nombre</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.apellidos">Apellidos</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.ciudad">Ciudad</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.email">Email</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.edad">Edad</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.id_categoria">Categoría</a></li>
-                        <li><a class="dropdown-item" href="ordenar.php?criterio=corredores.id_club">Club</a></li>
-                    </ul>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=1">Id</a></li>
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=2">Nombre</a></li>
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=3">Apellidos</a></li>
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=4">Ciudad</a></li>
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=5">Email</a></li>
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=6">Edad</a></li>
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=7">Categoría</a></li>
+                            <li><a class="dropdown-item" href="ordenar.php?criterio=8">Club</a></li>
+                        </ul>
+                   
                 </li>
             </ul>
             <form class="d-flex" role="search" method="GET" action="buscar.php">

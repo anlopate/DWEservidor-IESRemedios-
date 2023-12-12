@@ -1,11 +1,8 @@
 <?php
 
+    /*conectamos con la bbbd para mostrar todos los corredores a través del método get de la clase <corredores></corredores>*/ 
+
     $conexion = new Corredores();
-
-    // Esta variable se llamará desde "view.index.php" para recorrer los valores obtenidos por la función get_Corredores();
-    $corredores=$conexion->get_Corredores();
-
-
-
-
+    $corredores = $conexion->get_corredores();
+  
 ?>

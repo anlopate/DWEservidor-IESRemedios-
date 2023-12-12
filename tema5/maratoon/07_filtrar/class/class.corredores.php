@@ -1,41 +1,43 @@
 <?php
 
+Class Corredores extends Conexion {
 
-Class Corredores extends Conexion{
 
-    public function get_Corredores(){
+    public function get_corredores(){
 
         try{
 
-            $sql = "SELECT 
-                corredores.id,
-                corredores.nombre,
-                corredores.apellidos,
-                corredores.ciudad,
-                corredores.email,
-                timestampdiff(YEAR,  corredores.fechaNacimiento, NOW()) as edad,
-                corredores.id_categoria,
-                corredores.id_club
-                FROM corredores
-                INNER JOIN categorias ON 
-                ORDER BY corredores.id";
-            
+            $sql= "SELECT 
+                    corredores.id,
+                    corredores.nombre,
+                    corredores.apellidos,
+                    corredores.ciudad,
+                    corredores.email,
+                    corredores.edad,
+                    categorias.nombreCorto as id_categoria,
+                    clubs.nombreCorto as id_club
+                    FROM
+                     corredores
+                     INNER JOIN categorias ON corredores.id_categoria = categorias.id
+                     INNER JOIN clubs ON corredores.id_club = clubs.id
+                     ORDER BY id";
+                     
             $pdostmt = $this->pdo->prepare($sql);
 
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);
-            
+
             $pdostmt->execute();
 
             return $pdostmt;
-        
+
+
         }catch (PDOException $e){
             include('views/partials/errorDB.php');
             exit();
         }
     }
 
-    public function get_Categorias(){
-
+    public function get_categorias(){
         try{
 
             $sql = "SELECT 
@@ -44,150 +46,40 @@ Class Corredores extends Conexion{
                         nombre,
                         descripcion
                         FROM
-                        categorias
-                        ";
+                        categorias";
 
             $pdostmt = $this->pdo->prepare($sql);
 
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
-
             $pdostmt->execute();
 
             return $pdostmt;
-
         }catch (PDOException $e){
-            include('views/partials/errorDB.php');
+            include('views/partials.errorDB.php');
             exit();
         }
     }
 
-    public function get_Clubs (){
-
+    public function get_clubs (){
         try{
-            $sql = 'SELECT
+
+            $sql = "SELECT 
                         id,
                         nombreCorto,
                         nombre,
                         ciudad,
-                        fecFundacion, 
-                        numSocios
-                        FROM 
-                        clubs';
+                        fecFundacion,
+                        numSocios FROM clubs";
 
             $pdostmt = $this->pdo->prepare($sql);
-
+            
             $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
             $pdostmt->execute();
 
             return $pdostmt;
-            
-        }catch (PDOException $e){
-            include('views/partials/errorDB.php');
-            exit();
-        }
-    }
 
-    public function insert_Corredor (Corredor $corredor){
-
-        try{
-
-            $sql = "INSERT INTO corredores VALUES (
-                    null,
-                    :nombre,
-                    :apellidos,
-                    :ciudad,
-                    :fechaNacimiento,
-                    :sexo,
-                    :email,
-                    :dni,
-                    null,
-                    :id_categoria,
-                    :id_club)";
-
-              $pdostmt = $this->pdo->prepare($sql);
-              
-              $pdostmt->bindParam(':nombre', $corredor->nombre, PDO::PARAM_STR, 50);
-              $pdostmt->bindParam(':apellidos', $corredor->apellidos, PDO::PARAM_STR, 50);
-              $pdostmt->bindParam(':ciudad', $corredor->ciudad, PDO::PARAM_STR, 100);
-              $pdostmt->bindParam(':fechaNacimiento', $corredor->fechaNacimiento);
-              $pdostmt->bindParam(':sexo', $corredor->sexo, PDO::PARAM_STR ,1);
-              $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 20);
-              $pdostmt->bindParam(':dni', $corredor->dni, PDO::PARAM_STR, 9);
-              $pdostmt->bindParam(':id_categoria', $corredor->id_categoria, PDO::PARAM_STR,5);
-              $pdostmt->bindParam(':id_club', $corredor->id_club, PDO::PARAM_INT, 1);
-
-              $pdostmt->execute();
-
-              $pdostmt = null;
-
-              $this->pdo = null;
-
-            }catch(PDOException $e){
-                include('views/partials/errorDB.php');
-                exit();
-            }
-
-    }
-
-    public function update_Corredor (Corredor $corredor, $id){
-
-        try{
-
-            $sql = "UPDATE corredores SET
-                    
-                    nombre = :nombre,
-                    apellidos = :apellidos,
-                    ciudad = :ciudad,
-                    fechaNacimiento = :fechaNacimiento,
-                    sexo = :sexo,
-                    email = :email,
-                    dni = :dni,
-                    null,
-                    id_categoria = :id_categoria,
-                    id_club = :id_club
-                    WHERE corredores.id = $id";
-
-              $pdostmt = $this->pdo->prepare($sql);
-
-              //$pdostmt->bindParam(':id', $id);
-              $pdostmt->bindParam(':nombre', $corredor->nombre, PDO::PARAM_STR, 50);
-              $pdostmt->bindParam(':apellidos', $corredor->apellidos, PDO::PARAM_STR, 50);
-              $pdostmt->bindParam(':ciudad', $corredor->ciudad, PDO::PARAM_STR, 100);
-              $pdostmt->bindParam(':fechaNacimiento', $corredor->fechaNacimiento);
-              $pdostmt->bindParam(':sexo', $corredor->sexo, PDO::PARAM_STR ,1);
-              $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 20);
-              $pdostmt->bindParam(':dni', $corredor->dni, PDO::PARAM_STR, 9);
-              $pdostmt->bindParam(':id_categoria', $corredor->id_categoria, PDO::PARAM_STR,5);
-              $pdostmt->bindParam(':id_club', $corredor->id_club, PDO::PARAM_INT, 1);
-              
-              $pdostmt->execute();
-
-              $pdostmt = null;
-
-              $this->pdo = null;
-            
-            }catch(PDOException $e){
-                include('views/partials/errorDB.php');
-                exit();
-            }
-    }
-
-    public function read_Corredor($id){
-
-        try{
-
-            $sql = "SELECT * FROM corredores where id= $id";
-
-            $pdostmt = $this->pdo->prepare($sql);
-           // $pdostmt->bindParam(':id', $id , PDO::PARAM_INT);
-
-            $pdostmt->setFetchMode(PDO::FETCH_OBJ);
-
-            $pdostmt->execute();
-
-            return $pdostmt->fetch();
 
         }catch(PDOException $e){
             include('views/partials/errorDB.php');
@@ -195,16 +87,53 @@ Class Corredores extends Conexion{
         }
     }
 
+    public function insert_corredor(Corredor $corredor){
+        try{
+            $sql = "INSERT 
+            INTO corredores VALUES(
+                                null,
+                                :nombre,
+                                :apellidos,
+                                :ciudad,
+                                :fechaNacimiento,
+                                :sexo,
+                                :email,
+                                :dni,
+                                :edad,
+                                :id_categoria,
+                                :id_club)";
 
-    public function delete_Corredor($id){
+                $pdostmt = $this->pdo->prepare($sql);
+
+                $pdostmt->bindParam(':nombre', $corredor->nombre, PDO::PARAM_STR, 50);
+                $pdostmt->bindParam(':apellidos', $corredor->apellidos, PDO::PARAM_STR, 50);
+                $pdostmt->bindParam(':ciudad', $corredor->ciudad, PDO::PARAM_STR, 20);
+                $pdostmt->bindParam(':fechaNacimiento', $corredor->fechaNacimiento);
+                $pdostmt->bindParam(':sexo', $corredor->sexo, PDO::PARAM_STR, 2);
+                $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 10);
+                $pdostmt->bindParam(':dni', $corredor->dni, PDO::PARAM_STR, 10);
+                $pdostmt->bindParam(':edad', $corredor->edad, PDO::PARAM_INT, 3);
+                $pdostmt->bindParam(':id_categoria', $corredor->id_categoria, PDO::PARAM_INT, 5);
+                $pdostmt->bindParam(':id_club', $corredor->id_club, PDO::PARAM_INT, 6);
+
+                $pdostmt->execute();
+
+                $pdostmt=null;
+
+                $this->pdo = null;
+                                    
+        }catch(PDOException $e){
+            include('views/partials/errorDB.php');
+            exit();
+        }
+    }
+
+    public function delete ($id){
 
         try{
+            $sql = "DELETE  FROM corredores WHERE id=$id";
 
-            $sql = "DELETE FROM corredores WHERE id = $id";
-
-            $pdostmt = $this->pdo->prepare($sql);
-
-           // $pdostmt->bindParam(':id', $id, PDO::PARAM_OBJ);
+            $pdostmt=$this->pdo->prepare($sql);
 
             $pdostmt->execute();
 
@@ -212,80 +141,151 @@ Class Corredores extends Conexion{
 
             $this->pdo = null;
 
-        }catch(PDOException $e){
+
+        }catch (PDOException $e){
             include('views/partials/errorDB.php');
             exit();
         }
     }
 
+        public function update(Corredor $corredor, $id){
 
-    public function ordenar_Corredores($criterio){
+                try{
 
-        try{
-            $sql = "SELECT * FROM corredores ORDER BY $criterio";
+                    $sql = "UPDATE corredores SET  
+                                    nombre          = :nombre,
+                                    apellidos       = :apellidos,
+                                    ciudad          = :ciudad,
+                                    fechaNacimiento = :fechaNacimiento,
+                                    sexo            = :sexo,
+                                    email           = :email,
+                                    dni             = :dni,
+                                    edad            = :edad,
+                                    id_categoria    = :id_categoria,
+                                    id_club         = :id_club
+                                    WHERE id = $id"; 
+                    
+                $pdostmt = $this->pdo->prepare($sql);
 
-            $pdostmt = $this->pdo->prepare($sql);
+              $pdostmt->bindParam(':nombre', $corredor->nombre, PDO::PARAM_STR, 50);
+              $pdostmt->bindParam(':apellidos', $corredor->apellidos, PDO::PARAM_STR, 50);
+              $pdostmt->bindParam(':ciudad', $corredor->ciudad, PDO::PARAM_STR, 100);
+              $pdostmt->bindParam(':fechaNacimiento', $corredor->fechaNacimiento);
+              $pdostmt->bindParam(':sexo', $corredor->sexo, PDO::PARAM_STR ,1);
+              $pdostmt->bindParam(':email', $corredor->email, PDO::PARAM_STR, 20);
+              $pdostmt->bindParam(':dni', $corredor->dni, PDO::PARAM_STR, 9);
+              $pdostmt->bindParam(':id_categoria', $corredor->id_categoria, PDO::PARAM_STR,5);
+              $pdostmt->bindParam(':id_club', $corredor->id_club, PDO::PARAM_INT, 1);
 
-            $pdostmt->setFetchMode(PDO::FETCH_OBJ);
+                $pdostmt->execute();
 
-            $pdostmt->execute();
+                $pdostmt = null;
 
-            return $pdostmt;
+                $this->pdo = null;
+                
+                }catch (PDOException $e){
+                    include('views/partials/errorDB.php');
+                    exit();
+                }
 
 
-            
-        }catch(PDOException $e){
-            include('views/partials/errorDB.php');
-            exit();
+            }
+
+        public function read ($id){
+
+            try{
+
+                $sql = "SELECT * FROM corredores WHERE id = $id";
+                           
+
+                $pdostmt = $this->pdo->prepare($sql);
+                
+                $pdostmt->setFetchMode(PDO::FETCH_OBJ);
+
+                $pdostmt->execute();
+
+                return $pdostmt->fetch();
+
+            }catch (PDOException $e){
+                    include('views/partials/errorDB.php');
+                    exit();
+                }
+
         }
 
+        public function ordenar(int $criterio){
 
-    }
+            try{
 
-    public function filtrar_corredores($expresion){
+                $sql = "SELECT * FROM corredores ORDER BY $criterio";
 
-        try{
-           $sql = " SELECT 
-            corredores.id,
-            corredores.nombre,
-            corredores.apellidos,
-            corredores.ciudad,
-            corredores.fechaNacimiento,
-            corredores.sexo,
-            corredores.email,
-            corredores.dni,
-            timestampdiff(YEAR, corredores.fechaNacimiento, NOW()) as edad,
-            corredores.id_categoria,
-            corredores.id_club
-        FROM
-           corredores
-        WHERE CONCAT_WS(' ',
-            corredores.id,
-            corredores.nombre,
-            corredores.apellidos,
-            corredores.ciudad,
-            corredores.fechaNacimiento,
-            corredores.sexo,
-            corredores.email,
-            corredores.dni,
-            timestampdiff(YEAR, corredores.fechaNacimiento, NOW())as edad,
-            corredores.id_categoria,
-            corredores.id_club)
-        LIKE $expresion";
+                $pdostmt = $this->pdo->prepare($sql);
 
-        $pdostmt =$this->pdo->prepare($sql);
-        $expr = "%".$expresion."%";
-        $pdostsmt->bindParam(':expresion', $expr, PDO::PARAM_STR);
+                $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
-        $pdostmt->setFetchMode(PDO::FETCH_OBJ);
+                $pdostmt->execute();
 
-        $pdostmt->execute();
+                return $pdostmt;
 
-        return $pdostmt;
-            
-        }catch(PDOException $e){
-            include('views/partials/errorDB.php');
-            exit();
+            }catch (PDOException $e){
+                include('views/partials/errorDB.php');
+                exit();
+            }
         }
-    }}
+
+        public function filter($expresion)
+        {
+            // definimos la expresión entre % para filtrar
+            $exp = "%$expresion%";
+    
+            // definimos variable sql y la igualamos a la consulta SQL deseada
+            $sql = "SELECT 
+                        corredores.id,
+                        corredores.nombre,
+                        corredores.apellidos,
+                        corredores.ciudad,
+                        corredores.email,
+                        corredores.edad,
+                        categorias.nombrecorto AS id_categoria, /** Pensamos en cada uno de los resultados como propiedades del objeto */
+                        clubs.nombreCorto AS id_club
+                    FROM
+                        corredores
+                            INNER JOIN
+                        categorias ON corredores.id_categoria = categorias.id
+                            INNER JOIN
+                        clubs ON corredores.id_club = clubs.id
+                        WHERE
+                        CONCAT_WS('',
+                            corredores.id, 
+                            corredores.nombre, 
+                            corredores.apellidos, 
+                            corredores.ciudad, 
+                            corredores.email, 
+                            corredores.edad, 
+                            categorias.nombrecorto, 
+                            clubs.nombreCorto
+                            ) LIKE :expresion";
+    
+            # ejecutamos el prepare -> objeto de la clase pdostsmt
+            $podstsmt = $this->pdo->prepare($sql); // pasamos como argumento el resultado la consulta
+    
+            # Ejecutamos el bindParam
+            $podstsmt->bindParam(':expresion', $exp);
+    
+            # Establecemos el tipo de fetch
+            $podstsmt->setFetchMode(PDO::FETCH_OBJ); // extrae cada emento como un objeto
+    
+            # ejecutamos -> se obtiene un objeto de la clasae pdoresult
+            $podstsmt->execute();
+    
+            # Retornamos el objeto
+            return $podstsmt;
+    
+        }
+    
+    
+      
+}
+
+
 ?>

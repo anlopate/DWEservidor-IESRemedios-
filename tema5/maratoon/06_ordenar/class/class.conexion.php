@@ -24,10 +24,11 @@
                 ];
 
                 $this->pdo = new PDO($dsn, USER, PASS, $options);
-
+               
             }
             catch (PDOException $e) {
                 include('views/partials/errorDB.php');
+              
                 exit();
             }
 

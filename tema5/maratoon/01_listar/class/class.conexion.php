@@ -24,10 +24,12 @@
                 ];
 
                 $this->pdo = new PDO($dsn, USER, PASS, $options);
+                echo "conexión realizada";
 
             }
             catch (PDOException $e) {
                 include('views/partials/errorDB.php');
+                echo "error de conexión";
                 exit();
             }
 

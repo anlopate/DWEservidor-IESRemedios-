@@ -45,14 +45,12 @@
             </div>
             <!-- Dni -->
             <div class="mb-3">
-                <label for="sexo" class="form-label">Sexo </label><br>  
-                <input type="checkbox" class="form-check-input" id="hombre" name="genero" value="hombre">
-                <label class="form-check-label">Hombre</label>
-                <input type="checkbox" class="form-check-input" id="mujer" name="genero" value="mujer">
-                <label class="form-check-label">Mujer</label>
-                <input type="checkbox" class="form-check-input" id="sinEsp" name="genero" value="sinEsp">
-                <label class="form-check-label">Sin Especificar</label>
-
+               <label for="sexo" class="form-label">Sexo</label>
+               <input type="checkbox" class="form-check-input" value="H" name="genero" id="hombre">
+               <label id="hombre" class="form-check-label">Hombre</label>
+               <input type="checkbox" class="form-check-input" value="M" name="genero" id="mujer">
+               <label id="mujer" class="form-check-label">Mujer</label>
+               <input type="checkbox" class="form-check-input" name="genero" value="SE" for="mujer">
             </div>
 
             <!-- Telefono -->
@@ -65,26 +63,34 @@
                 <label for="dni" class="form-label">DNI</label>
                 <input type="text" class="form-control" name="dni">
             </div>
+            <div class="mb-3">
+                <label for="edad" class="form-label">EDAD</label>
+                <input type="text" class="form-control" name="edad">
+            </div>
             <!-- Población -->
             <div class="mb-3">
-                <label for="categoria" class="form-label">Categoria</label>
-                <select class="form-select" aria-label="Default select example" name="id_categoria">
-                     <option selected disable>Seleccione categoria</option>
-                      <?php foreach($categorias as $categoria):?>
-                        <option value="<?= $categoria->id?>"> <?= $categoria->nombreCorto?> </option>
-                      </option>
-                      <?php endforeach;?>
-                </select>
+               <label for="categoria" class="form-label">Categoría</label>
+               <select name="categoria">
+                    <option selected disable>Seleccione una categoría</option>
+                    <?php foreach ($categorias as $categoria): ?>
+                      <option value="<?= $categoria->id ?>">
+                            <?= $categoria->nombreCorto ?> 
+                    </option>
+                    <?php endforeach; ?>  
+               </select>
             </div>
             <!-- Provincia -->
             <div class="mb-3">
-                <label for="provincia" class="form-label">Club</label>
-                <select class="form-select" aria-label="Default select example" name="id_club">
-                    <option selected disable>Seleccione club</option>
-                    <?php foreach ($clubs as $club) : ?>
-                        <option value="<?=$club->id?>"> <?=$club->nombreCorto?> </option>
-                    <?php endforeach;?>
+                <label for="club" class="form-label">Club</label>
+                    <select name="club">
+                    <option selected disable>Seleccione un club</option>
+                        <?php foreach ($clubs as $club): ?>
+                        <option value="<?= $club->id ?>">
+                            <?= $club->nombreCorto ?>
+                    </option>
+                    <?php endforeach; ?>
                 </select>
+               
             </div>
            
             <!-- botones de acción -->

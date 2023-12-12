@@ -4,6 +4,6 @@
 
     $conexion = new Corredores();
 
-    $corredores = $conexion->filtrar_corredores($expresion);
+    $corredores = $conexion->filter($expresion);
 
 ?>

@@ -13,7 +13,7 @@
         <!-- cabecera documento -->
         <?php include 'views/partials/header.php' ?>
 
-        <legend>Formulario Nuevo Corredor</legend>
+        <legend>Formulario Editar Corredor</legend>
 
         <!-- Formulario Nuevo Libro -->
         <form action="update.php?id=<?=$corredor->id?>" method="POST">
@@ -45,13 +45,13 @@
             </div>
             <!-- Dni -->
             <div class="mb-3">
-                <label for="sexo" class="form-label">Sexo </label><br>  
-                <input type="checkbox" class="form-check-input" id="hombre" name="genero" value="hombre">
-                <label class="form-check-label">Hombre</label>
-                <input type="checkbox" class="form-check-input" id="mujer" name="genero" value="mujer">
-                <label class="form-check-label">Mujer</label>
-                <input type="checkbox" class="form-check-input" id="sinEsp" name="genero" value="sinEsp">
-                <label class="form-check-label">Sin Especificar</label>
+                <label for="sexo" class="form-label">Sexo</label>
+                <input type="checkbox" id="hombre" name="genero" class="form-check-input">
+                <label for="hombre" class="form-check-label">Hombre</label>
+                <input type="checkbox" id="mujer" name="genero" class="form-check-input">
+                <label for="mujer" class="form-check-label">Mujer</label>
+                <input type="checkbox" id="sinesp" name="genero" class="form-check-input">
+                <label for="sinEso" class="form-check-label">Sin especificar</label>
 
             </div>
 
@@ -68,30 +68,33 @@
             <!-- Población -->
             <div class="mb-3">
                 <label for="categoria" class="form-label">Categoria</label>
-                <select class="form-select" aria-label="Default select example" name="id_categoria">
-                     <option selected disable>Seleccione categoria</option>
-                      <?php foreach($categorias as $categoria):?>
-                        <option value="<?= $categoria->id?>"> <?= $categoria->nombreCorto?> </option>
-                      </option>
-                      <?php endforeach;?>
+                <select class="form-select" aria-label="Default select example" name="categoria">
+                    <option selected disabled >Seleccione categoria</option>
+                    <?php foreach ($categorias as $categoria):?>
+                        <option value="<?=$corredor->id?>" <?= $corredor->id_categoria == $categoria->id ? 'selected' : null ?>>  
+                            <?= $categoria->nombreCorto?>
+                    </option>
+                    <?php endforeach; ?> 
                 </select>
+                
             </div>
             <!-- Provincia -->
             <div class="mb-3">
                 <label for="provincia" class="form-label">Club</label>
-                <select class="form-select" aria-label="Default select example" name="id_club">
-                    <option selected disable>Seleccione club</option>
-                    <?php foreach ($clubs as $club) : ?>
-                        <option value="<?=$club->id?>"> <?=$club->nombreCorto?> </option>
-                    <?php endforeach;?>
-                </select>
+                <select class="form-select" aria-label="Default select example" name="club">
+                <option selected disabled>Seleccione club</option>
+                <?php foreach ($clubs as $club):?>
+                <option value="<?= $club->id ?>" <?= $corredor->id_club == $club->id ? 'selected' : null ?>>
+                            <?= $club->nombreCorto ?>
+                    </option>
+                    <?php endforeach; ?>       
+              </select>
             </div>
            
             <!-- botones de acción -->
             <a class="btn btn-secondary" href="index.php" role="button">Cancelar</a>
             <button type="reset" class="btn btn-danger">Borrar</button>
             <button type="submit" class="btn btn-primary">Enviar</button>
-
         </form>
 
         <br>
@@ -106,5 +109,4 @@
         <!-- javascript bootstrap 532 -->
         <?php include 'views/layouts/javascript.html' ?>
 </body>
-
 </html>

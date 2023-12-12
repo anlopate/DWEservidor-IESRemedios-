@@ -18,16 +18,7 @@
                         aria-expanded="false">
                         Ordenar
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.id">Id</a></li>
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.nombre">Nombre</a></li>
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.apellidos">Apellidos</a></li>
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.ciudad">Ciudad</a></li>
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.email">Email</a></li>
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.edad">Edad</a></li>
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.categoria">Categoría</a></li>
-                        <li><a class="dropdown-menu" href="ordenar.php?criterio=corredor.club">Club</a></li>
-                    </ul>
+                   
                 </li>
             </ul>
             <form class="d-flex" role="search" method="GET" action="buscar.php">

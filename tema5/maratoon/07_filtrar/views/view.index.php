@@ -40,7 +40,7 @@
             </thead>
             <!-- Mostramos cuerpo de la tabla -->
             <tbody>
-
+             
                 <!-- Cuando $corredor sea cero se sale del while. Cuando el fetch se haya recorrido entero. -->
                 <?php foreach ($corredores as $corredor): ?>
                     <tr>
@@ -53,7 +53,7 @@
                         <td><?= $corredor->ciudad?></td>
                         <td><?= $corredor->email?></td>
                         <td class="text-end"><?= $corredor->edad?></td>
-                        <td class="text-center"><?= $corredor->id_categoria?></td>
+                        <td><?= $corredor->id_categoria?></td>
                         <td><?= $corredor->id_club?></td>
                        
                        
@@ -70,29 +70,25 @@
                             <!-- botón  mostrar -->
                             <a href="mostrar.php?id=<?= $corredor->id?>" title="Mostrar">
                             <i class="bi bi-card-text"></i></a>
-
                         </td>
                     </tr>
-
-                <?php endforeach; ?>
-
-
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7">Nº Corredores
-                        <?= $corredores->rowCount(); ?>
-                    </td>
-                </tr>
-            </tfoot>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">Nº Corredores
+                            <?= $corredores->rowCount(); ?>
+                        </td>
+                    </tr>
+                </tfoot>
         </table>
-        <!--Cerramos la conexión-->
-        <?php $conexion->cerrar_conexion(); $corredores=null; ?>
-
-
-
-        <!-- Pié del documento -->
-        <?php include 'views/partials/footer.html' ?>
+            <!--Cerramos la conexión-->
+            <?php $conexion->cerrar_conexion(); $corredores=null; ?>
+            
+            
+            
+            <!-- Pié del documento -->
+            <?php include 'views/partials/footer.html' ?>
 
     </div>
 

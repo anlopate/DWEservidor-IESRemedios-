@@ -1,12 +1,13 @@
 <?php
 
-    $id_mostrar = $_GET['id'];
+        $id_mostrar = $_GET['id'];
 
-    $conexion = new Corredores();
+        $conexion = new Corredores();
 
-    $clubs = $conexion->get_Clubs();
-    $categorias = $conexion->get_Categorias();
+        $categorias = $conexion->get_categorias();
+        $clubs = $conexion->get_clubs();
 
-    $corredor= $conexion->read_Corredor($id_mostrar);
+        $corredor = $conexion->read($id_mostrar);
+
 
 ?>

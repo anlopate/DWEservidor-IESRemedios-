@@ -6,7 +6,7 @@
             public $nombre;
             public $apellidos;
             public $ciudad;
-            public $fechaNac;
+            public $fechaNacimiento;
             public $sexo;
             public $email;
             public $dni;
