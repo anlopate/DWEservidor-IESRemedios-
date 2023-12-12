@@ -17,6 +17,7 @@ Class Corredores extends Conexion{
                 corredores.id_categoria,
                 corredores.id_club
                 FROM corredores
+                INNER JOIN categorias ON 
                 ORDER BY corredores.id";
             
             $pdostmt = $this->pdo->prepare($sql);
@@ -244,19 +245,37 @@ Class Corredores extends Conexion{
     public function filtrar_corredores($expresion){
 
         try{
-            $sql = "SELECT * FROM corredores WHERE 
-            CONCAT_WS(' ', 
-            id,
-            nombre,
-            apellidos,
-            ciudad,
-            email,
-            edad,
-            id_categoria,
-            id_club) LIKE $expresion";
+           $sql = " SELECT 
+            corredores.id,
+            corredores.nombre,
+            corredores.apellidos,
+            corredores.ciudad,
+            corredores.fechaNacimiento,
+            corredores.sexo,
+            corredores.email,
+            corredores.dni,
+            timestampdiff(YEAR, corredores.fechaNacimiento, NOW()) as edad,
+            corredores.id_categoria,
+            corredores.id_club
+        FROM
+           corredores
+        WHERE CONCAT_WS(' ',
+            corredores.id,
+            corredores.nombre,
+            corredores.apellidos,
+            corredores.ciudad,
+            corredores.fechaNacimiento,
+            corredores.sexo,
+            corredores.email,
+            corredores.dni,
+            timestampdiff(YEAR, corredores.fechaNacimiento, NOW())as edad,
+            corredores.id_categoria,
+            corredores.id_club)
+        LIKE $expresion";
 
         $pdostmt =$this->pdo->prepare($sql);
-        //$pdostsmt->bindParam(':expresion', "%$expresion%", PDO::PARAM_STR);
+        $expr = "%".$expresion."%";
+        $pdostsmt->bindParam(':expresion', $expr, PDO::PARAM_STR);
 
         $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 

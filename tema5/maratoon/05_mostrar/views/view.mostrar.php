@@ -73,9 +73,8 @@
                       <?php foreach($categorias as $categoria):?>
                         <option value="<?= $categoria->id?>" <?= ($corredor->id_categoria == $categoria->id) ? 'selected' : null ?>>
                         <?= $categoria->nombreCorto?>
-                    
                     </option>
-                      </option>
+                     
                       <?php endforeach;?>
                 </select>
             </div>
