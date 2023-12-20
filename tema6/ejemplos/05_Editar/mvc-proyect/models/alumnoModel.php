@@ -143,5 +143,15 @@
         }
 
     }
+
+    public function read($id){
+
+        try{
+            'SELECT * FROM alumnos WHERE alumnos.id = :id';
+
+            $pdostmt = $this->pdo->prepare($sql);
+           
+        }
+    }
 }
 ?>

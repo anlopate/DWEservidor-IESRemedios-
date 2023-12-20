@@ -3,7 +3,7 @@
 
 # Ruta absoluta
 
-define('URL', 'http://localhost/dwes/tema6/ejemplos/04_A%c3%b1adir/mvc-proyect/');
+define('URL', 'http://localhost/dwes/tema6/ejemplos/05_Editar/mvc-proyect/');
 
 # Constante de la Base de Datos
 define('HOST', 'localhost');

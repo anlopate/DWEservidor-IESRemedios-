@@ -56,6 +56,32 @@
           header('location:'.URL.'alumno'); 
         }
 
+        function edit($param = []){
+
+            #Obtengo el id del alumno que voy a editar
+             //alumno/edit/4, edita el alumno numero 4. alumno es el controlador, edit es el método y 4 es el parámetro en un array.
+             
+             $id = param[0];//el id del alumno es un arra
+             #asigno id a una propiedad de la vista
+             $this->view->id = $id;
+
+             #title
+             $this->view->title = "Editar - panel de control Alumnos";
+
+             #Obtener objeto de la clase alumno
+
+             $this->view->alumno = $this->model->read($id);
+
+             #Obtener cursos
+             $this->vies->cursos = $this->model->getCursos();
+
+             #cargo la vista
+             $this->view->render('alumno/edit/index');
+
+
+
+        }
+
         function show($param = []){ //En este tipo de programación, se Recibe la información a través de un array
 
         }
