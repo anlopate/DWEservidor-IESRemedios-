@@ -9,8 +9,10 @@
     
     <!-- Page Content -->
     <div class="container">
-	<br><br><br><br>
+		
 
+	<br><br><br><br>
+		<!-- notificación -->
 		<?php require_once("template/partials/notify.php") ?>
 		
 

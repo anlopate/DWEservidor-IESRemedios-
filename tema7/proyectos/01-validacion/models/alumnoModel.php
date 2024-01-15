@@ -363,7 +363,7 @@
         //Consulta para  validación email único
      public function validateUniqueEmail ($email){
         try{
-                $sql = "SELECT FROM alumnos WHERE email = :email ";
+                $sql = "SELECT * FROM alumnos WHERE email = :email ";
 
                 $conexion = $this->db->connect();
                 $pdost = $conexion->prepare($sql);
@@ -386,7 +386,7 @@
 
      public function validateUniqueDni ($dni){
         try{
-                $sql = "SELECT FROM alumnos WHERE dni = :dni ";
+                $sql = "SELECT * FROM alumnos WHERE dni = :dni ";
 
                 $conexion = $this->db->connect();
                 $pdost = $conexion->prepare($sql);
@@ -409,12 +409,12 @@
 
      public function validarCurso ($id_curso){
         try{
-                $sql = "SELECT FROM cursos WHERE id = :id_curso";
+                $sql = "SELECT * FROM cursos WHERE id = :id_curso";
 
                 $conexion = $this->db->connect();
                 $pdost = $conexion->prepare($sql);
 
-                $pdost->bindParam(':id', $id_curso, PDO::PARAM_INT);
+                $pdost->bindParam(':id_curso', $id_curso, PDO::PARAM_INT);
                 $pdost->execute();
 
                 if($pdost->rowCount() == 1){
