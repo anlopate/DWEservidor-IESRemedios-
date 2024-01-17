@@ -18,7 +18,7 @@
 
             <div class="mb-3">
                 <label for="num_cuenta" class="form-label">Número Cuenta</label>
-                <input type="number" class="form-control" name="num_cuenta">
+                <input type="number" class="form-control" name="num_cuenta" max_lenght="20" >
             </div>
 
         
@@ -37,13 +37,13 @@
 
             <div class="mb-3">
                 <label for="fecha_alta" class="form-label">Fecha de alta nueva cuenta</label>
-                <input type="date" class="form-control" name="fecha_alta">
+                <input type="date" class="form-control" name="fecha_alta" value="<=? now() ?>">
             </div>
 
           
             <div class="mb-3">
                 <label for="saldo" class="form-label">Saldo inicial</label>
-                <input type="number" class="form-control" name="saldo" min="0" step="0.01">
+                <input type="number" class="form-control" name="saldo" min="0" step="0.01" value="0">
             </div>
     
             <!-- <a class="btn btn-secondary" href="cuenta" role="button">Cancelar</a>

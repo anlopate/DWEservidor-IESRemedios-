@@ -359,6 +359,25 @@
             # Cargo la vista principal de alumno
             $this->view->render('alumno/main/index');
         }
+
+        public function delete($param = []) {
+
+            # iniciar sesión
+            session_start();
+
+            # obtenemos la id del alumno
+            $id = $param[0];
+
+            # eliminar alumno 
+            $this->model->delete($id);
+
+            # generar mensaje
+            $_SESSION['notify'] = 'Alumno eliminado correctamente';
+
+            # Redirecciono al main de alumnos
+            header ('location:' . URL . 'alumno');
+
+        }
     }
 
 ?>

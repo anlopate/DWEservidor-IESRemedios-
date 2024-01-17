@@ -76,7 +76,7 @@
 
          $this->model->delete($id);
 
-         header("Location:".URL."cliente");
+         header("location:".URL."cliente");
 
         }
 

@@ -33,7 +33,7 @@
 						<tr>
 							<th>Id</th>
 							<th>Número de cuenta</th>
-							<th>Id cliente</th>
+							<th>Cliente</th>
 							<th>Fecha de alta</th>
 							<th>Fecha ultimo movto</th>
 							<th>Nº movimientos</th>
@@ -53,7 +53,7 @@
 									<?= $cuenta->num_cuenta ?>
 								</td>
 								<td>
-									<?= $cuenta->id_cliente?>
+									<?= $cuenta->cliente?>
 								</td>
 								<td>
 									<?= $cuenta->fecha_alta?>
@@ -61,12 +61,13 @@
 								<td>
 									<?= $cuenta->fecha_ul_mov ?>
 								</td>
-								<td>
-									<?= $cuenta->num_movtos ?>
+								<td class ="text-end">
+									<?=  number_format($cuenta->num_movtos,0,',',',') ?>
 								</td>
-								<td>
-									<?= $cuenta->saldo?>
+								<td class ="text-end">
+									<?=  number_format($cuenta->saldo,2,',',',') ?> €
 								</td>
+								
 								
 								<!-- botones de acción -->
 								<td>

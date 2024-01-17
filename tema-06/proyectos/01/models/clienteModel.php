@@ -5,7 +5,14 @@
         public function get(){
             try {
          
-            $sql = "SELECT * FROM clientes";
+            $sql = "SELECT 
+                        id,
+                        concat_ws(',', apellidos, nombre) as cliente,
+                        telefono,
+                        ciudad,
+                        dni,
+                        email
+             FROM clientes";
 
             $conexion = $this->db->connect();
             $pdostmt = $conexion->prepare($sql);
@@ -143,8 +150,7 @@
                
                 $sql ="SELECT 
                 clientes.id,
-                clientes.nombre,
-                clientes.apellidos,
+                concat_ws(',', clientes.apellidos, clientes.nombre) cliente,
                 clientes.email,
                 clientes.telefono,
                 clientes.ciudad,
@@ -176,38 +182,33 @@
                
                 $sql ="SELECT 
                 clientes.id,
-                clientes.nombre,
-                clientes.apellidos,
+                concat_ws(',', clientes.apellidos, clientes.nombre) cliente,
                 clientes.email,
                 clientes.telefono,
                 clientes.ciudad,
                 clientes.dni FROM clientes
-                WHERE CONCAT_WS(' ',
+                WHERE CONCAT_WS(' ,',
                 clientes.id,
+                clientes.apellidos, 
                 clientes.nombre,
-                clientes.apellidos,
                 clientes.email,
                 clientes.telefono,
                 clientes.ciudad,
-                clientes.dni) LIKE :expresion";
+                clientes.dni) LIKE :expresion
+                ORDER BY id ASC";
 
                
                 $conexion = $this->db->connect();
 
-                
                 $pdostmt = $conexion->prepare($sql);
 
-              
                 $expresion = '%'.$expresion.'%';
-                $pdostmt -> bindParam(":expresion",$expresion);
+                $pdostmt -> bindParam(":expresion",$expresion, PDO::PARAM_STR);
 
-               
                 $pdostmt->setFetchMode(PDO::FETCH_OBJ);
 
-               
                 $pdostmt->execute();
 
-               
                 return $pdostmt;
 
             } catch (PDOException $e) {

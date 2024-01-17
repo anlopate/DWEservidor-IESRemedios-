@@ -27,8 +27,7 @@
 					<thead>
 						<tr>
 							<th scope="col">Id</th>
-							<th scope="col">Nombre</th>
-							<th scope="col">Apellidos</th>
+							<th scope="col">Cliente</th>
 							<th scope="col">Email</th>
 							<th scope="col">Telefono</th>
 							<th scope="col">Ciudad</th>
@@ -44,10 +43,7 @@
 									<?= $cliente->id ?>
 								</th>
 								<td>
-									<?= $cliente->nombre ?>
-								</td>
-								<td>
-									<?= $cliente->apellidos ?>
+									<?= $cliente->cliente ?>
 								</td>
 								<td>
 									<?= $cliente->email ?>

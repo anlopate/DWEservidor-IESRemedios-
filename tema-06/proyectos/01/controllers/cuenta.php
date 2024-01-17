@@ -36,7 +36,6 @@
         );
 
         $this->model->create($cuenta);
-
         header('location:' . URL . 'cuenta');
     }
 
@@ -48,8 +47,9 @@
 
         $this->view->title = "Editar Cuenta - Panel de control Cuentas";
         $this->view->cuenta = $this->model->read($id_editar);
+        $this->view->listaClientes = $this->model->obtenerCliente();
         $this->view->render('cuenta/edit/index');
-
+       
     }
 
 

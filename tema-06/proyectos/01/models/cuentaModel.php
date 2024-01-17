@@ -6,14 +6,22 @@
 
             try {
 
-                $sql = "SELECT *
+                $sql = "SELECT 
+                    cuentas.id,
+                    cuentas.num_cuenta,
+                    concat_ws(', ',clientes.apellidos, clientes.nombre) as cliente,
+                    cuentas.id_cliente,
+                    cuentas.fecha_alta,
+                    cuentas.fecha_ul_mov,
+                    cuentas.num_movtos,
+                    cuentas.saldo
                 FROM
                    cuentas
+                   INNER JOIN
+                   clientes ON cuentas.id_cliente = clientes.id 
                 ORDER BY 
-                    id
-                ";
+                    id";
                 
-
                 $conexion = $this->db->connect();
                 $pdostmt = $conexion->prepare($sql);
                 $pdostmt->setFetchMode(PDO::FETCH_OBJ);
@@ -72,10 +80,11 @@
            
             $sql = "SELECT 
                         clientes.id,
-                        clientes.nombre,
-                        clientes.apellidos
+                        clientes.apellidos,
+                        clientes.nombre
                     FROM
-                        clientes";
+                        clientes
+                        ORDER BY apellidos, nombre;";
 
            
             $conexion = $this->db->connect();
@@ -97,18 +106,17 @@
 
     public function read(int $id){
         try {
-            
-            $sql = "SELECT 
-                    cuentas.num_cuenta,
-                    cuentas.id_cliente,
-                    cuentas.fecha_alta,
-                    cuentas.fecha_ul_mov,
-                    cuentas.num_movtos,
-                    cuentas.saldo
-                     FROM cuentas 
-                     WHERE id=:id";
+              $sql= "  SELECT 
+                cuentas.num_cuenta,
+                concat_ws(',', clientes.apellidos, clientes.nombre) as cliente,
+                cuentas.fecha_ul_mov,
+                cuentas.num_movtos,
+                cuentas.saldo
+                FROM
+                cuentas
+                INNER JOIN
+                clientes ON cuentas.id_cliente = clientes.id WHERE cuentas.id = :id";
 
-          
             $conexion = $this->db->connect();
 
             $pdostmt = $conexion->prepare($sql);
@@ -137,7 +145,7 @@
                     null,
                     null,
                     null,
-                    saldo = :saldo
+                    null
                 WHERE id = :id
                 ";
 

@@ -429,6 +429,22 @@
 
      }
 
+     public function delete ($id){
+
+        try{
+
+            $sql = "DELETE FROM alumnos WHERE id = :id limit 1";
+            $conexion = $this->db->connect();
+            $pdost = $conexion->prepare($sql);
+            $pdost->bindParam(':id', $id, PDO::PARAM_INT);
+            $pdost->execute(); 
+            
+        }catch(PDOException $e){
+            include_once('template/partials/errorDB.php');
+            exit();
+            
+        }
+     }
    
 
     }  
