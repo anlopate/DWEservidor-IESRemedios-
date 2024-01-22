@@ -3,30 +3,23 @@
 <html lang="es"> 
 
 <?php require_once("template/partials/head.php") ?>
-
+<title>Gestión Clientes Gesbank </title>
 <body>
-    <?php require_once("template/partials/menu.php") ?>
+    <?php require_once("template/partials/menuBar.php") ?>
     
     <!-- Page Content -->
     <div class="container">
 	<br><br><br><br>
-
 		<?php require_once("template/partials/mensaje.php") ?>
-		
-
 		<!-- Estilo card de bootstrap -->
 		<div class="card">
 			<div class="card-header">
 				MVC
 			</div>
 			<div class="card-body">
-				
                 <?php require_once("template/partials/header.php") ?>
-
 			</div>
 		</div>
-
-
     </div>
 
     <!-- /.container -->

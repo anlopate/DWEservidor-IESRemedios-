@@ -7,7 +7,7 @@
 </head>
 
 <body>
-	<?php require_once("template/partials/menu.php")?>
+	<?php require_once("template/partials/menuAut.php")?>
 	<br><br><br>
 	<div class="container">
 		<?php require_once("views/cliente/partials/header.php") ?>
@@ -22,7 +22,6 @@
 				<?php require_once("views/cliente/partials/menu.php") ?>
 			</div>
 			<div class="card-body">
-				
 				<table class="table">
 					<thead>
 						<tr>
@@ -82,8 +81,6 @@
 				<small class="text-muted">Número de Clientes: <?= $this->clientes->rowCount() ?></small>
 			</div>
 		</div>
-
-
 	</div>
 	<br><br><br>
 	

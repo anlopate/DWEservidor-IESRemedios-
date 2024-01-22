@@ -5,40 +5,35 @@
 <head>
 	<?php require_once("template/partials/head.php") ?>
 	<title><?= $this->title ?></title>
-<head>
+</head>
 
 <body>
 	<?php require_once("template/partials/menu.php") ?>
 	<br><br><br>
-
-	
 	<div class="container">
-		
 		<?php require_once("views/cuenta/partials/header.php") ?>
 		<?php require_once("template/partials/mensaje.php") ?>
 		<?php require_once("template/partials/error.php") ?>
 
-		
-		<div class="card">
+		<div class="card" >
 			<div class="card-header">
-				Tabla de Cuentas
+				Tabla Cuentas
 			</div>
 			<div class="card-header">
 				<?php require_once("views/cuenta/partials/menu.php") ?>
 			</div>
 			<div class="card-body">
-
 				<table class="table">
 					<thead>
 						<tr>
-							<th>Id</th>
-							<th>Número de cuenta</th>
-							<th>Cliente</th>
-							<th>Fecha de alta</th>
-							<th>Fecha ultimo movto</th>
-							<th>Nº movimientos</th>
-							<th>Saldo</th>
-							<th>Acciones</th>
+							<th scope="col">Id</th>
+							<th scope="col">Número de cuenta</th>
+							<th scope="col">Cliente</th>
+							<th scope="col">Fecha de alta</th>
+							<th scope="col">Fecha ultimo movto</th>
+							<th scope="col">Nº movimientos</th>
+							<th scope="col">Saldo</th>
+							<th scope="col">Acciones</th>
 						</tr>
 					</thead>
 					
@@ -46,9 +41,9 @@
 						<?php foreach ($this->cuentas as $cuenta): ?>
 							<tr>
 								
-								<td>
+								<th>
 									<?= $cuenta->id ?>
-								</td>
+								</th>
 								<td>
 									<?= $cuenta->num_cuenta ?>
 								</td>
@@ -70,30 +65,24 @@
 								
 								
 								<!-- botones de acción -->
-								<td>
+								<td style="display:flex; justify-content:space-between;">
 									<!-- botón  eliminar -->
 									<a href="<?= URL ?>cuenta/delete/<?= $cuenta->id ?>" title="Eliminar">
-										<i class="bi bi-trash-fill">Delete</i></a>
+										<i class="bi bi-trash"></i>Delete</a>
 
 									<!-- botón  editar -->
-									<a href="<?= URL ?>cuenta/edit/<?= $cuenta->id ?>" title="Editar">
-										<i class="bi bi-pencil-square">Edit</i></a>
+									<a href="<?= URL ?>cuenta/edit/<?= $cuenta->id ?>" title="Editar"> <i class="bi bi-pencil"></i> Edit</a>
 
 									<!-- botón  mostrar -->
 									<a href="<?= URL ?>cuenta/show/<?= $cuenta->id ?> ?>" title="Mostrar">
-										<i class="bi bi-card-text"></i>Show</a>
-
+										<i class="bi bi-eye"></i>Show</a>
 								</td>
-							</tr>
-
+						</tr>
 						<?php endforeach; ?>
-
-
 					</tbody>
-					
 				</table>
-
 			</div>
+					
 			<div class="card-footer">
 				<small class="text-muted"> Nº Cuentas: 
 					<?= $this->cuentas->rowCount(); ?>

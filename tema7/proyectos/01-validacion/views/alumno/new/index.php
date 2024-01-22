@@ -4,7 +4,7 @@
 <head>
     <!-- head -->
     <?php require_once("template/partials/head.php") ?>
-    <title><?= $this->title ?></title>
+    <title><?= $this->view->title ?></title>
 </head>
 
 <body>
@@ -22,8 +22,6 @@
         <?php include 'template/partials/error.php' ?>
 
         <legend>Formulario Nuevo Alumno</legend>
-
-
 
         <!-- Formulario Nuevo Alumno -->
         <form action="<?= URL ?>alumno/create" method="POST">

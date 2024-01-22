@@ -216,5 +216,54 @@
                 exit();
             }
         }
+
+        public function validateUniqueEmail ($email){
+            try{
+                    $sql = "SELECT * FROM clientes WHERE email = :email ";
+    
+                    $conexion = $this->db->connect();
+                    $pdost = $conexion->prepare($sql);
+    
+                    $pdost->bindParam(':email', $email, PDO::PARAM_STR);
+                    $pdost->execute();
+    
+                    if($pdost->rowCount() != 0){
+                        return false;
+                    }
+                    return true; //Devuelve true, quiere decir que está validado.
+    
+            }catch (PDOException $e){
+                    include_once('template/partials/errorDB.php');
+                    exit();
+                    
+                }
+    
+         }
+
+         
+     public function validateUniqueDni ($dni){
+        try{
+                $sql = "SELECT * FROM clientes WHERE dni = :dni ";
+
+                $conexion = $this->db->connect();
+                $pdost = $conexion->prepare($sql);
+
+                $pdost->bindParam(':dni', $dni, PDO::PARAM_STR);
+                $pdost->execute();
+
+                if($pdost->rowCount() != 0){
+                    return false;
+                }
+                return true; //Devuelve true, quiere decir que está validado.
+
+        }catch (PDOException $e){
+                include_once('template/partials/errorDB.php');
+                exit();
+                
+            }
+
+     }
+
+
      }
 ?>

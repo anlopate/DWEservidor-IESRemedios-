@@ -20,7 +20,7 @@
                    INNER JOIN
                    clientes ON cuentas.id_cliente = clientes.id 
                 ORDER BY 
-                    id";
+                   clientes.id";
                 
                 $conexion = $this->db->connect();
                 $pdostmt = $conexion->prepare($sql);
@@ -104,11 +104,12 @@
         }
     }
 
-    public function read(int $id){
+    public function read($id){
         try {
               $sql= "  SELECT 
                 cuentas.num_cuenta,
                 concat_ws(',', clientes.apellidos, clientes.nombre) as cliente,
+                cuentas.fecha_alta,
                 cuentas.fecha_ul_mov,
                 cuentas.num_movtos,
                 cuentas.saldo
@@ -135,17 +136,19 @@
         }
     }
 
-    public function update(int $id, classCuenta $cuenta){
+    public function update($id, classCuenta $cuenta){
         try {
             
             $sql= "UPDATE cuentas SET
                     null,
+                    num_cuenta = :num_cuenta,
+                    id_cliente = :id_cliente,
+                    fecha_alta = :fecha_alta,
+                    fecha_ul_mov = :fecha_ul_mov,
+                    num_movtos = :num_movtos,
+                    saldo=:saldo,
                     null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
+                    update_at = now()
                 WHERE id = :id
                 ";
 
@@ -153,12 +156,19 @@
 
             $pdostmt = $conexion->prepare($sql);
            
-            $pdostmt->bindParam(':saldo',$cuenta->saldo,PDO::PARAM_INT);
+            $pdostmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $pdostmt->bindParam(":num_cuenta", $cuenta->num_cuenta, PDO::PARAM_STR, 20);
+            $pdostmt->bindParam(":id_cliente", $cuenta->id_cliente, PDO::PARAM_INT);
+            $pdostmt->bindParam(":fecha_alta", $cuenta->fecha_alta, PDO::PARAM_STR);
+            $pdostmt->bindParam(":fecha_ul_mov", $cuenta->fecha_ul_mov, PDO::PARAM_STR);
+            $pdostmt->bindParam(":num_movtos", $cuenta->num_movtos, PDO::PARAM_INT);
+            $pdostmt->bindParam(":saldo", $cuenta->saldo, PDO::PARAM_INT);
         
             $pdostmt->execute();
 
         } catch (PDOException $e) {
             include 'template/partials/error.php';
+            
             exit();
         }
     }
@@ -257,6 +267,50 @@
         }
     }
 
+    public function validateNumCuentaUnique ($num_cuenta){
+
+        try{
+            $sql = "SELECT * FROM cuentas WHERE num_cuenta = :num_cuenta";
+
+            $conexion = $this->db->connect();
+            $pdost = $conexion->prepare($sql);
+
+            $pdost->bindParam(':num_cuenta', $num_cuenta, PDO::PARAM_INT);
+            $pdost->execute();
+
+            if($pdost->rowCount() != 0){
+                return false;
+            }
+            return true; //Devuelve true, quiere decir que está validado.
+
+    }catch (PDOException $e){
+            include_once('template/partials/error.php');
+            exit();
+            
+
+
+        }
+    }
+
+    public function clienteExistente ($id_cliente){
+        try{
+            $sql = "SELECT * FROM clientes WHERE id = :id_cliente";
+
+            $conexion = $this->db->connect();
+            $pdost = $conexion->prepare($sql);
+
+            $pdost->bindParam(':id_cliente', $id_cliente,  PDO::PARAM_INT);
+            $pdost->execute();
+
+            if($pdost->rowCount() != 0){
+                return false;
+            }return true;
+            
+        }catch (PDOException $e){
+            include_once('template/partials/error.php');
+            exit();
+        }
+    }
 }
 
 ?>

@@ -12,8 +12,9 @@
         <br><br>
        
         <?php require_once("views/cliente/partials/header.php") ?>
-
-       
+        <legend><b>Formulario Editar Cliente</b></legend>
+        <!-- Comprobar si hay errores -->
+        <?php include 'template/partials/error.php' ?>
         <form action="<?=URL?>cliente/update/<?=$this->id?>" method="POST">
           
             <div class="mb-3">
