@@ -1,0 +1,10 @@
+
+oejgnwelngvwóvn´lvneqórnórn´lkbnmlfadnjkgnkv kajn
+Introduce línea
+Introduce línea
+Introduce línea
+¿Y cómo podríamos añadir más seguridad a una aplicación web? ¿Y al servidor Tomcat? Cuando hablamos de hacer una aplicación web más segura, se suelen utilizar diferentes técnicas. Veamos algunos ejemplos:
+
+Limitar el conjunto de usuarios que pueden conectarse a la aplicación. Esto ya se vio con anterioridad en la autenticación de usuarios.
+Limitar el conjunto de equipos que pueden conectarse a la aplicación. Por ejemplo, podríamos configurar una aplicación web para que solo fuese usada por un conjunto limitado de equipos con un rango de direcciones IP concretas.
+Usar una conexión segura (HTTPS) para acceder al servicio web. Esto implica instalar y configurar SSL/TLS en Tomcat.
