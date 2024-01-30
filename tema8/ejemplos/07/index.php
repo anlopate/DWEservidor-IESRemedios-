@@ -1,6 +1,6 @@
 <?php
 
-/*Ejemplo 1. Crear archivo texto <plano></plano>*/
+/*Ejemplo 1. Crear archivo texto*/
 
 # Crear archivo para escritura.
 # Si no existe lo crea.
@@ -13,7 +13,6 @@ $fichero = "files/ejemplo.txt";
 $datos_archivo = stat($fichero);
 
 print_r($datos_archivo);
-
 
 
 ?>
