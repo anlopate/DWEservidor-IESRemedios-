@@ -12,8 +12,6 @@
     # Cargar el fichero
     $fichero = $_FILES['fichero'];
     
-   
-
     # Genero array de error de fichero
     $phpFileUploadErrors = array(
         0 => 'There is no error, the file uploaded with success',

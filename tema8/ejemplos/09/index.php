@@ -7,13 +7,13 @@
 // echo 'Directorio Actual ' . getcwd();
 
 # Cmabiar directorio actual.
-// chdir('files');
-// echo '<br>';
-// echo 'Directorio actual: ' . getcwd();
+chdir('files');
+echo '<br>';
+echo 'Directorio actual: ' . getcwd();
 
-// chdir('../08');
-// echo '<br>';
-// echo 'Directorio actual: ' . getcwd();
+chdir('../08');
+echo '<br>';
+echo 'Directorio actual: ' . getcwd();
 
 
 

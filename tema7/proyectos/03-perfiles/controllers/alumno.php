@@ -17,7 +17,8 @@
             if(!isset($_SESSION['id'])) {
                 $_SESSION['notify'] = 'Usuario debe autentificarse';
                 header('location:'. URL . 'login');
-                # Pregunta si tiene privilegios para identificarse.
+                # Indica que si el rol presente en la variable de sesión 'id_rol' no está presente en la variable global 'alumno''main'
+                // El alumno no tiene permiso.
             }else if(!in_array($_SESSION['id_rol'], $GLOBALS['alumno']['main'])){
                 $_SESSION['mensaje'] = "Operación sin privilegios";
                 header('location:'.URL.'index');

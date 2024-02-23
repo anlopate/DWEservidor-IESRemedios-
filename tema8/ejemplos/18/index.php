@@ -1,28 +1,18 @@
 <?php
 
-    /* Ejemplo 17
-        Añadir todos los archivos de una carpeta
-    */
+   $archivo_zip = "files.zip";
 
-    // Creamos objeto de la clase zipArchive
-    $zip = new zipArchive();
+   $zip = new ZipArchive();
 
-    // abrir archivo zip. Utilizo el método open da la clase zip archivo.
-    // true en este caso es 1.
-    if ($zip->open('files.zip', ZipArchive::CREATE) === true){
+   if($zip->open($archivo_zip) === true){
 
-        $files = glob('files/*');
-        
-        foreach($files as $file){
-            $zip->addFile($file);
-        }
-        // Proceso finalizado
-        $zip->close();
-        echo "Carpeta comprimida correctamente";
-    }else{
-         echo 'error';   
+    $zip->extractTo('./');
+    $zip->close();
 
-    }
+    echo 'Archivo descomprimido';
+   }else{
+    echo 'Error al descomprimir';
+   }
 
 
 ?>

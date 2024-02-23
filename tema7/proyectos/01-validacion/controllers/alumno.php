@@ -15,16 +15,18 @@
 
             # Comprobar si existe un mensaje
             if(isset($_SESSION['mensaje'])){
+                # Si esxite, lo muestra.
                 $this->view->mensaje = $_SESSION['mensaje'];
+                # Después lo borra.
                 unset($_SESSION['mensaje']);
             }
             # Creo la propiedad title de la vista
             $this->view->title = "Home - Panel Control Alumnos";
             
-            # Creo la propiedad alumnos dentro de la vista
-            # Del modelo asignado al controlador ejecuto el método get();
+            # Creo la propiedad alumnos dentro de la vista.
+            # Del modelo asignado al controlador, ejecuto el método get();
             $this->view->alumnos = $this->model->get();
-
+            # Desde la vista, renderizo los datos del alumno en el main.
             $this->view->render('alumno/main/index');
         }
 
@@ -39,14 +41,13 @@
             # Comprobar si vuelvo de un registro no validado
             if (isset($_SESSION['error'])){
 
-                # Mensaje de error
+                # Si vuelvo de un registro no validado, muestro el mensaje de error.
                 $this->view->error = $_SESSION['error'];
 
-                # Autorellenar el formulario
+                # Autorelleno el objeto alumno creado anteriormente con los datos guardados en la variable de sesión alumno. Con este relleno el formulario.
+                $this->view->alumno = unserialize($_SESSION['alumno']); //Convierte el string de alumno que convertimos en errores(create) en objeto.
 
-                $this->view->alumno = unserialize($_SESSION['alumno']); //Convierte el string de alumno que convertimos en errores(create) en objeto
-
-                # Recupero array errores específicos
+                # Recupero array errores específicos que guardo en la variable errores dentro de la vista.
                 $this->view->errores = $_SESSION['errores'];
 
                 # Elimino las variables de sesión
@@ -72,7 +73,7 @@
 
 
             #Seguridad, saneamos los datos del formulario.
-            #Para evitar la inyección de código a la bbdd. Se le llama sanear.
+            #Para evitar la inyección de código no deseado a la bbdd. Se le llama sanear.
             $nombre = filter_var($_POST['nombre'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS); //??=Expresión abreviada que hace: ¿existe $_POST.., si existe, filtralo. Si no existe, ponlo a null. *operador de función de asignación de null.  
             $apellidos = filter_var($_POST['apellidos'] ??= '', FILTER_SANITIZE_SPECIAL_CHARS); 
             $email = filter_var($_POST['email'] ??= '', FILTER_SANITIZE_EMAIL); 
@@ -99,10 +100,8 @@
                 $id_curso
             );
 
-            # Validación
-
+            # Validación. Creo un array $errores vacío al que se irán añadiendo los posibles errores del formulario.
             $errores = [];
-
             // Nombre: obligatorio.
             if(empty($nombre)){ //Solo se puede usar si hemos usado ??= '' porque si no se completa el nombre, no tendría datos. ASí tiene datos vacíos.
                 $errores['nombre'] = 'El campo nombre es obligatorio';
@@ -153,17 +152,17 @@
 
             if(!empty($errores)){
                  # errores de validación
-                 $_SESSION['alumno'] = serialize($alumno); //Convierte el obj alumno en un string.
+                 $_SESSION['alumno'] = serialize($alumno); //Convierte el obj alumno en un string con los datos saneados del formulario.
                  $_SESSION['error'] = 'Formulario no ha sido validado.';
                  $_SESSION['errores'] = $errores; //Contiene el array de errores. Indica el tipo de error ya que lo hemos indicado en la validación.
 
-                 # Redireccionar a new
+                 # Redireccionar a new para volver a introducir los datos en el formulario.
                  header('location:'. URL.'alumno/new');
             }else{
-                // crear alumno
-                # Añadir registro a la tabla. Redirigimos al create.
+                // Si no hay errores, se crea un alumno con los datos saneados anteriormente.
+                // Esos datos se envían al método create del modelo para ser insertados en la bbdd.
                 $this->model->create($alumno);
-                # Mensaje
+                // Se crea una variable de sesión con el mesaje de confirmación.
                 $_SESSION['mensaje'] = 'Alumno creado correctamente.';
                 # Redirigimos al main de alumnos
                 header('location:'.URL.'alumno');  
@@ -180,13 +179,14 @@
             // alumno/edit/4
             $id = $param[0];
 
-            # asigno id a una propiedad de la vista
+            # Creo en la vista la propiedad id y le asigno el valor de $id.
             $this->view->id = $id;
 
             # title
             $this->view->title = "Editar - Panel de control Alumnos";
 
-            # obtener objeto de la clase alumno
+            # Creo la propiedad alumno en la vista y le asigno los valores
+            // obtenidos del método read del modelo.  
             $this->view->alumno = $this->model->read($id);
 
             # obtener los cursos
@@ -198,8 +198,7 @@
                 # Mensaje de error
                 $this->view->error = $_SESSION['error'];
 
-                # Autorellenar el formulario
-
+                # Autorellenar el formularioy
                 $this->view->alumno = unserialize($_SESSION['alumno']); //Convierte el string de alumno que convertimos en errores(create) en objeto
 
                 # Recupero array errores específicos

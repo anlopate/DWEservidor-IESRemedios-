@@ -48,7 +48,6 @@
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Mensaje </strong> <?= $mensaje; ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  
                     </button>   
             </div>
       <?php endif;?>
@@ -80,12 +79,12 @@
             <!-- Fichero -->
             <div class="mb-3">
                 <label for="formFile" class="form-label">Seleccione Archivo</label>
-                <!-- La etiqueta accept indica qué tipo de archivo se puede subir -->
+                <!-- La etiqueta accept indica qué tipo de archivo se puede subir. Archivos imagen con cualquier extensión -->
                 <input type="file" name="fichero" class="form-control" id="formFile" accept="image/*" value="<?=$fichero?>">
                 <!-- Error -->
                 <span class="form-text text-danger" role="alert"><?= $errores['fichero'] ??= null ?></span>
             </div>
-
+           
              <!-- Botones acción -->
              <button class="btn btn-primary" type="submit">Enviar</button>
     </form>
