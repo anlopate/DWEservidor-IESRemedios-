@@ -5,7 +5,7 @@
     // Carga el ficehro main de la librería FPDF
     require('fpdf/fpdf.php');
 
-    // Instanciamos la en mayúsculas
+    // Instanciamos la clase en mayúsculas
     $pdf=new FPDF();
 
     // Añadimos página
