@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', ArticuloController::class);
+Route::get('articulos',[ArticuloController::class, 'index']);

@@ -16,47 +16,40 @@ class ArticuloController extends Controller
             [
                 'id' => 1,
                 'descripcion'=>'Portátil HP MD12345',
-                'modelo'=>'HP 15-1234-20',
                 'categoria'=> 0,
-                'unidades'=> 12,
-                'precio'=> 550.50
+                'stock'=> 12,
+                'precio_coste'=> 550.50,
+                'precio_venta'=> 1550.50
             ],
             [
                 'id' => 2,
                 'descripcion'=>'Tablet - Samsung Galaxy Tab A (2019)',
-                'modelo'=>'Exynos',
                 'categoria'=> 5,
-                'unidades'=> 200,
-                'precio'=> 300
+                'stock'=> 200,
+                'precio_coste'=>300,
+                'precio_venta'=> 1300
             ],
             [
                 'id' => 3,
                 'descripcion'=>'Impresora multifunción - HP',
-                'modelo'=>'DeskJet 3762',
                 'categoria'=> 4,
-                'unidades'=> 2000,
-                'precio'=> 69
+                'stock'=> 2000,
+                'precio_coste'=>69,
+                'precio_venta'=> 169
             ],
             [
                 'id' => 4,
                 'descripcion'=>'TV LED 40" - Thomson 40FE5606 - Full HD',
-                'modelo'=>'Thomson 40FE5606',
                 'categoria'=> 3,
-                'unidades'=> 300,
-                'precio'=> 259
-            ],
-            [
-                'id' => 5,
-                'descripcion'=>'PC Sobremesa - Acer Aspire XC-830',
-                'modelo'=>'Acer Aspire XC-830',
-                'categoria'=> 1,
-                'unidades'=> 20,
-                'precio'=> 329
+                'stock'=> 300,
+                'precio_coste'=> 259,
+                'precio_venta'=>1259
             ]
+           
     
         ];
 
-        return view('articulos.index');
+        return view('articulos', compact('articulos'));
     }
 
     /**
