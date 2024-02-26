@@ -12,5 +12,9 @@ define('USER', 'root');
 define('PASSWORD', '');
 define('CHARSET', 'utf8mb4');
 
+# Usuario y password para enviar email. A definir por cada usuario
+define('USER');
+define('PASSWORD');
+define('EMAILRMTE');
 
 ?>

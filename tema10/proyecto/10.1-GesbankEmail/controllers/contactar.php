@@ -159,8 +159,8 @@
             $mail->Encoding = "quoted-printable";
         
             // Credenciales SMPT gmail
-            $mail->Username = 'analopezatero@gmail.com';
-            $mail->Password = 'nuih reze lgfy znmu';
+            $mail->Username = USER;        // DEFINIR POR USUARIO
+            $mail->Password = PASSWORD;    // DESFINIR POR USUARIO.
         
             // Configuración SMPT gmail
             $mail->SMTPDebug = 2;                                       //Enable verbose debug output
@@ -172,7 +172,7 @@
         
             //Cabecera del email
             $destinatario = $contacto->email;
-            $remitente    = 'analopezatero@gmail.com';
+            $remitente    = EMAILRMTE;          // DEFINIR POR USUARIO.
             $asunto       = $contacto->asunto;
             $mensaje      = $contacto->mensaje;
         
