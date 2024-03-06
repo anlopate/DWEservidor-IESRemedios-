@@ -38,8 +38,7 @@
                     <option selected>Nombre Cliente</option>
                     <?php foreach ($this->listaClientes as $client): ?>
                         <option value="<?= $client->id ?>">
-                            <?= $client->apellidos ?>
-                            <?= $client->nombre ?>
+                            <?= $client->cliente ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

@@ -12,7 +12,7 @@
 	<br><br><br>
 	<div class="container">
 		<?php require_once("views/cuenta/partials/header.php") ?>
-		<?php require_once("template/partials/mensaje.php") ?>
+		<?php require_once("template/partials/notify.php") ?>
 		<?php require_once("template/partials/error.php") ?>
 
 		<div class="card" >

@@ -43,6 +43,7 @@
         try {
 
             $sql = "INSERT INTO cuentas (
+                id,
                 num_cuenta,
                 id_cliente,
                 fecha_alta,
@@ -50,6 +51,7 @@
                 num_movtos,
                 saldo
                 )VALUES(
+                :id,    
                 :num_cuenta,
                 :id_cliente,
                 NOW(),
@@ -61,14 +63,16 @@
            
             $conexion = $this->db->connect();
             $pdostmt = $conexion->prepare($sql);
-
-            $pdostmt->bindParam(':num_cuenta', $cuenta->num_cuenta);
-            $pdostmt->bindParam(':id_cliente', $cuenta->id_cliente);
-            $pdostmt->bindParam(':saldo', $cuenta->saldo);
+            
+            $pdostmt->bindParam(':id', $cuenta->id, PDO::PARAM_STR, 3);
+            $pdostmt->bindParam(':num_cuenta', $cuenta->num_cuenta, PDO::PARAM_STR, 20);
+            $pdostmt->bindParam(':id_cliente', $cuenta->id_cliente, PDO::PARAM_INT, 3);
+            $pdostmt->bindParam(':saldo', $cuenta->saldo,PDO::PARAM_INT, 20);
 
             $pdostmt->execute();
 
         } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
             include_once('template/partials/error.php');
             exit();
         }

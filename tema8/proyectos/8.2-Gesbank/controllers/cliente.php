@@ -274,8 +274,8 @@
             # Creamos un array de errores donde se almacenarán los posibles errores que contenga el formulario.
             $errores = [];
 
-            # Indicamos los posibles errores que pueden aparecer en cada campor del formulario.
-            # En caso de que se inserte algún dato incorrecto, se cragará en el array 'errores'.
+            # Indicamos los posibles errores que pueden aparecer en cada campo del formulario.
+            # En caso de que se inserte algún dato incorrecto, se cargará en el array 'errores'.
 
             // Apellidos: obligatorio y tamaño max 45 caractere.
             if (strcmp($cliente->apellidos, $cliente_orig->apellidos) !== 0){
@@ -518,7 +518,8 @@
             header('location:' . URL . 'cliente');
         }else{
           
-           $this->view->id = $param[0];
+           $id = $param[0]; 
+           $this->view->id = $id;
            $this->view->title = "Subir archivo";
 
            if(isset($_SESSION['error'])){
@@ -622,38 +623,42 @@
                $archivo = URL . 'CSV/' . $nombreArchivo;
                # Obtenemos el contenido del archivo
                $contenido = file_get_contents($archivo);
+               # Cada linea de "contenido" se convierte en un array separado por un salto d elinea \n.
                $lineas= explode("\n", $contenido);
 
                foreach($lineas as $linea){
+                # con str_getcsv, convierte una linea CSV en un array. Cada elemento del CSv se convierte en un campo del array.
                    $campos = str_getcsv($linea);
-                   $apellidos = $campos[0];
-                   $nombre = $campos[1];
-                   $telefono = $campos[2];
-                   $ciudad = $campos[3];
-                   $dni = $campos[4];
-                   $email = $campos[5];
-                   
                    $cliente = new classCliente(
-                       null,
-                       $apellidos,
-                       $nombre,
-                       $telefono,
-                       $ciudad,
-                       $dni,
-                       $email);
-
-                     $this->model->create($cliente);
-                       # Se crea una variable de sesión con el mensaje de éxito a mostrar en el formulario.
-                       $_SESSION['mensaje'] = 'Cliente CSV creado correctamente.';
-                       # Nos redirige al main de cliente.
-                       header('location:' . URL . 'cliente');   
+                    $id = null,
+                   $apellidos = $campos[0],
+                   $nombre = $campos[1],
+                   $telefono = $campos[2],
+                   $ciudad = $campos[3],
+                   $dni = $campos[4],
+                   $email = $campos[5]);
+                   $this->model->create($cliente);
+               
+                   # Se crea una variable de sesión con el mensaje de éxito a mostrar en el formulario.
+                   $_SESSION['mensaje'] = 'Cliente CSV creado correctamente.';
+                   # Se borra archivo CSV de la carpeta CSV del proyecto.
+                   # Nos redirige al main de cliente.
+                   header('location:' . URL . 'cliente');   
+                }
+                
+                if (!unlink('CSV/' . $nombreArchivo)) {
+                    echo "Error al eliminar el archivo: $archivo";
                }
-               }
+               
+                }
             }
 
-}
+          
         
-    
+            }       
+
+        
+             
     
             
                  

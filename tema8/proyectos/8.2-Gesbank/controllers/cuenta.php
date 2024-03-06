@@ -586,32 +586,31 @@
 
                foreach($lineas as $linea){
                    $campos = str_getcsv($linea);
-                   $num_cuenta = $campos[0];
-                   $cliente = $campos[1];
-                   $fecha_alta = $campos[2];
-                   $fecha_ult_mov = $campos[3];
-                   $num_movtos = $campos[4];
-                   $saldo = $campos[5];
-                   
                    $cuenta = new classCuenta(
-                       null,
-                       $num_cuenta,
-                       $cliente,
-                       $fecha_alta,
-                       $fecha_ult_mov,
-                       $num_movtos,
-                       $saldo);
-
-                       $this->model->create($cuenta);
-                       # Se crea una variable de sesión con el mensaje de éxito a mostrar en el formulario.
-                       $_SESSION['mensaje'] = 'Cuenta CSV creada correctamente.';
-                       # Nos redirige al main de cliente.
-                       header('location:' . URL . 'cuenta');   
-               }
+                   $id = null, 
+                   $num_cuenta = $campos[0],
+                   $cliente = $campos[1],
+                   $fecha_alta = null,
+                   $fecha_ult_mov = null,
+                   $num_movtos = $campos[4],
+                   $saldo = $campos[5]);
+                    $this->model->create($cuenta);
+                    # Se crea una variable de sesión con el mensaje de éxito a mostrar en el formulario.
+                    $_SESSION['mensaje'] = 'Cuenta CSV creada correctamente.';
+                    # Nos redirige al main de cliente.
+                    header('location:' . URL . 'cuenta');   
+                    }
+                    if (!unlink('CSV/' . $nombreArchivo)) {
+                       echo "Error al eliminar el archivo: $archivo";
+                   }
                }
             }
+           
+    }
 
-}
+            
+
+
         
     
     

@@ -643,10 +643,10 @@ require('class/classPDFCuenta.php');
                    $cuentas = $this->model->get();
                    
                    foreach($cuentas as $cuenta){
-                       $pdf-> Cell(60, 10, iconv('UTF-8','UTF-8', $cuenta->cliente),1,0,'C');
-                       $pdf-> Cell(60, 10, iconv('UTF-8','UTF-8', $cuenta->num_cuenta),1,0,'C');
-                       $pdf-> Cell(40, 10, iconv('UTF-8','UTF-8', $cuenta->fecha_alta),1,0,'C');
-                       $pdf-> Cell(30, 10, iconv('UTF-8','UTF-8', $cuenta->saldo),1,0,'C');
+                       $pdf-> Cell(60, 10, iconv('UTF-8','ISO-8859-1', $cuenta->cliente),1,0,'C');
+                       $pdf-> Cell(60, 10, iconv('UTF-8','ISO-8859-1', $cuenta->num_cuenta),1,0,'C');
+                       $pdf-> Cell(40, 10, iconv('UTF-8','ISO-8859-1', $cuenta->fecha_alta),1,0,'C');
+                       $pdf-> Cell(30, 10, iconv('UTF-8','ISO-8859-1', $cuenta->saldo),1,0,'C');
                        $pdf->Ln();
                          // Esto añade encbezado de tabla a cada página que se crea.
                        if ($pdf->GetY() > 250) {

@@ -682,11 +682,11 @@
                     $clientes = $this->model->get();
                     
                     foreach($clientes as $cliente){
-                        $pdf-> Cell(15, 10, iconv('UTF-8','UTF-8', $cliente->id),1,0,'C');
-                        $pdf-> Cell(70, 10, iconv('UTF-8','UTF-8', $cliente->cliente),1,0,'C');
-                        $pdf-> Cell(30, 10, iconv('UTF-8','UTF-8', $cliente->telefono),1,0,'C');
-                        $pdf-> Cell(30, 10, iconv('UTF-8','UTF-8', $cliente->dni),1,0,'C');
-                        $pdf-> Cell(50, 10, iconv('UTF-8','UTF-8', $cliente->email),1,0,'C');
+                        $pdf-> Cell(15, 10, iconv('UTF-8','ISO-8859-1', $cliente->id),1,0,'C');
+                        $pdf-> Cell(70, 10, iconv('UTF-8','ISO-8859-1', $cliente->cliente),1,0,'C');
+                        $pdf-> Cell(30, 10, iconv('UTF-8','ISO-8859-1', $cliente->telefono),1,0,'C');
+                        $pdf-> Cell(30, 10, iconv('UTF-8','ISO-8859-1', $cliente->dni),1,0,'C');
+                        $pdf-> Cell(50, 10, iconv('UTF-8','ISO-8859-1', $cliente->email),1,0,'C');
                         $pdf->Ln();
                         // Esto añade encbezado de tabla a cada página que se crea.
                         if ($pdf->GetY() > 250) {
@@ -694,20 +694,14 @@
                             $pdf->encabezado();
                        
                     }
+                }
                     // $pdf->Footer();
                     // ob_clean: Borra los posibles datos almacenados en el búfer con ob_start.
                     ob_clean();
                     $pdf->Output();
                     // ob_end_flush: envía el bufer de salida con los datos actuales.
                     ob_end_flush();
-
             }
-
-            }
-        
-    
-    
-            
                  
         }
     }
